@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "File";
+}
+<div style="margin-top: 50px;">
+    <div>
+        <h2>PDF File</h2>
+        <button data-file="TestFile.pdf" data-action="View" class="file-button">View</button>
+        <button data-file="TestFile.pdf" data-action="OpenInNewTab" class="file-button">Open in New Tab</button>
+        <button data-file="TestFile.pdf" data-action="Download" class="file-button">Download</button>
+    </div>
+    <div>
+        <h2>JPG File</h2>
+        <button data-file="TestJPG.jpg" data-action="View" class="file-button">View</button>
+        <button data-file="TestJPG.jpg" data-action="OpenInNewTab" class="file-button">Open in New Tab</button>
+        <button data-file="TestJPG.jpg" data-action="Download" class="file-button">Download</button>
+    </div>
+    <div>
+        <h2>Doc File</h2>
+        <button data-file="TestDoc.docx" data-action="Download" class="file-button">Download</button>
+    </div>
+    <div>
+        <h2>Excel File</h2>
+        <button data-file="TestExcel.xlsx" data-action="Download" class="file-button">Download</button>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.file-button').forEach(button => {
+        button.addEventListener('click', function () {
+            const fileName = this.getAttribute('data-file');
+            const action = this.getAttribute('data-action');
+            let url;
+
+            if (action == 'View') {
+                url = '@Url.Action("ViewFile", "File")' + `?fileName=${fileName}`;
+                window.location.href = url;
+            } else if (action == 'OpenInNewTab') {
+                url = '@Url.Action("ViewFile", "File")' + `?fileName=${fileName}`;
+                window.open(url, '_blank');
+            } else if (action == 'Download') {
+                url = '@Url.Action("DownloadFile", "File")' + `?fileName=${fileName}`;
+                window.location.href = url;
+            }
+        });
+    });
+</script>
